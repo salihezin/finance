@@ -1,3 +1,4 @@
+import "@/core/i18n/i18n";
 import { ThemeProvider } from '@/core/theme/ThemeProvider';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';

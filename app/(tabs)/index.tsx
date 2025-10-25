@@ -7,9 +7,16 @@ import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { useTheme } from '@/core/theme/ThemeProvider';
 import { Link } from 'expo-router';
+import { useTranslation } from 'react-i18next';
 
 export default function HomeScreen() {
   const { theme, toggleTheme, isDark } = useTheme();
+  const { t, i18n } = useTranslation();
+
+  const changeLanguage = (lng: string) => {
+    i18n.changeLanguage(lng);
+  };
+
   return (
     <ParallaxScrollView
       headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
@@ -22,9 +29,12 @@ export default function HomeScreen() {
       <ThemedView style={styles.titleContainer}>
         <ThemedText type="title">Welcome!</ThemedText>
         <HelloWave />
+        <Button title="Change to English" onPress={() => changeLanguage('en')} />
+        <Button title="Türkçe'ye Geç" onPress={() => changeLanguage('tr')} />
       </ThemedView>
       <ThemedView style={styles.stepContainer}>
         <ThemedText type="subtitle">Step 1: Try it</ThemedText>
+        <ThemedText>{t('hello_world')}</ThemedText>
         <View style={{ flex: 1, backgroundColor: theme.background, justifyContent: "center", alignItems: "center" }}>
       <Text style={{ color: theme.text }}>Current Theme: {isDark ? "Dark" : "Light"}</Text>
       <Button title="Toggle Theme" onPress={toggleTheme} color={theme.primary} />
