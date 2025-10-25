@@ -1,13 +1,15 @@
 import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
+import { Button, Platform, StyleSheet, Text, View } from 'react-native';
 
 import { HelloWave } from '@/components/hello-wave';
 import ParallaxScrollView from '@/components/parallax-scroll-view';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
+import { useTheme } from '@/core/theme/ThemeProvider';
 import { Link } from 'expo-router';
 
 export default function HomeScreen() {
+  const { theme, toggleTheme, isDark } = useTheme();
   return (
     <ParallaxScrollView
       headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
@@ -23,6 +25,10 @@ export default function HomeScreen() {
       </ThemedView>
       <ThemedView style={styles.stepContainer}>
         <ThemedText type="subtitle">Step 1: Try it</ThemedText>
+        <View style={{ flex: 1, backgroundColor: theme.background, justifyContent: "center", alignItems: "center" }}>
+      <Text style={{ color: theme.text }}>Current Theme: {isDark ? "Dark" : "Light"}</Text>
+      <Button title="Toggle Theme" onPress={toggleTheme} color={theme.primary} />
+    </View>
         <ThemedText>
           Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
           Press{' '}
