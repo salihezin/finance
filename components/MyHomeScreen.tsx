@@ -1,13 +1,23 @@
 import { useTheme } from '@/core/theme/ThemeProvider';
 import { useEcho } from '@/hooks';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
 export default function MyHomeScreen() {
   const { theme } = useTheme();
-  const { postToEcho } = useEcho();
+  const { postToEcho, getUsers } = useEcho();
   const [message, setMessage] = useState('');
   const [response, setResponse] = useState<any>(null);
+
+  useEffect(() => {
+    getUsers<{ id: number; name: string }[]>()
+      .then(users => {
+        console.log('Kullanıcılar alındı:', users);
+      })
+      .catch(error => {
+        console.error('Kullanıcılar alınamadı:', error);
+      });
+  }, []);
 
   return (
     <View style={[styles.container, { backgroundColor: theme.background }]}>

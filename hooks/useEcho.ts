@@ -1,4 +1,4 @@
-import { EchoService } from '@/core/api';
+import { ApiService, EchoService } from '@/core/api';
 import { Alert } from 'react-native';
 
 export const useEcho = () => {
@@ -24,5 +24,15 @@ export const useEcho = () => {
     }
   };
 
-  return { postToEcho };
+  const getUsers = async <T>(): Promise<T | void> => {
+    try {
+      const users = await ApiService.getUsers<T>();
+      return users;
+    } catch (error) {
+      Alert.alert('Hata', 'Kullanıcılar alınamadı.');
+      console.error('Get users error:', error);
+    }
+  };
+
+  return { postToEcho, getUsers };
 };

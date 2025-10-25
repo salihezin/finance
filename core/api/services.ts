@@ -18,6 +18,15 @@ export class ApiService {
       throw new Error('Echo servisi ile iletişim kurulamadı');
     }
   }
+
+  static async getUsers<T>(): Promise<T> {
+    try {
+      return await apiClient.getUsers<T>();
+    } catch (error) {
+      console.error('ApiService: getUsers failed', error);
+      throw new Error('Kullanıcılar alınamadı');
+    }
+  }
 }
 
 // Specific use cases

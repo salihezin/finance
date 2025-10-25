@@ -1,5 +1,5 @@
 class ApiClient {
-  private baseURL = 'https://api-for-render.onrender.com';
+  private baseURL = 'http://localhost:3000';
 
   private async request<T>(
     endpoint: string,
@@ -44,6 +44,10 @@ class ApiClient {
       method: 'POST',
       body: JSON.stringify(data),
     });
+  }
+
+  async getUsers<T>(): Promise<T> {
+    return this.request<T>('/users');
   }
 }
 
